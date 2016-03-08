@@ -6,7 +6,6 @@
 
     <script>
     $(document).ready(function(){
-        var response = prompt("Who's you're favorite artist? Kendrick, Taylor, or Kanye?");
 
         function KendrickQuestion(){
           var response2 = confirm("Really?");
@@ -18,6 +17,7 @@
             $("body").prepend("<h1>Damn Right</h1>");
             $(".kendrick").addClass("kanyeHappy");
           }
+          $("h2").removeClass("secret");
         }
         function TaylorQuestion(){
           var response2 = confirm("Really?");
@@ -29,21 +29,38 @@
             $("body").prepend("<h1>Damn Right</h1>");
             $(".taylor").addClass("kanyeHappy");
           }
+          $("h2").removeClass("secret");
         }
 
-        if(response.toLowerCase().substring(0,2) === "ke"){
-          $(".kendrick").removeClass("secret");
-          setTimeout(KendrickQuestion, 2000);
+        function question(){
+          var response = prompt("Who's you're favorite artist? Kendrick, Taylor, or Kanye?");
+          if(response.toLowerCase().substring(0,2) === "ke"){
+            $(".kendrick").removeClass("secret");
+            setTimeout(KendrickQuestion, 2000);
+          }
+          else if(response.toLowerCase().substring(0,1) === "t"){
+            $(".taylor").removeClass("secret");
+            setTimeout(TaylorQuestion, 2000);
+          }
+          else if(response.toLowerCase().substring(0,2) === "ka"){
+            $("body").prepend("<h1>Damn Right</h1>");
+            $(".taylor").removeClass("secret");
+            $(".taylor").addClass("kanyeHappy");
+            $("h2").removeClass("secret");
+          }
+          else{
+            $("body").prepend("<h1>Idk who you're talking about</h1>");
+            $("h2").removeClass("secret");
+          }
         }
-        else if(response.toLowerCase().substring(0,1) === "t"){
-          $(".taylor").removeClass("secret");
-          setTimeout(TaylorQuestion, 2000);
-        }
-        else if(response.toLowerCase().substring(0,2) === "ka"){
-          $("body").prepend("<h1>Damn Right</h1>");
-          $(".taylor").removeClass("secret");
-          $(".taylor").addClass("kanyeHappy");
-        }
+
+        question();
+
+        $("h2").click(function(){
+          $("h2, h1, div").addClass("secret");
+          $("div").removeClass("kanyeHappy, kanyeMad");
+          question();
+        });
 
     });
     </script>
@@ -88,5 +105,6 @@
   <body>
     <div class="kendrick secret"></div>
     <div class="taylor secret"></div>
+    <h2 class="secret">Go back</h2>
   </body>
 </html>

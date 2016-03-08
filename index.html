@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>manipulating html</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+        var response = prompt("Who's you're favorite artist? Kendrick, Taylor, or Kanye?");
+
+        function KendrickQuestion(){
+          var response2 = confirm("Really?");
+          if (response2 === true){
+            $("body").prepend("<h1>Wrong Answer</h1>");
+            $(".kendrick").addClass("kanyeMad");
+          }
+          else{
+            $("body").prepend("<h1>Damn Right</h1>");
+            $(".kendrick").addClass("kanyeHappy");
+          }
+        }
+        function TaylorQuestion(){
+          var response2 = confirm("Really?");
+          if (response2 === true){
+            $("body").prepend("<h1>Wrong Answer</h1>");
+            $(".taylor").addClass("kanyeMad");
+          }
+          else{
+            $("body").prepend("<h1>Damn Right</h1>");
+            $(".taylor").addClass("kanyeHappy");
+          }
+        }
+
+        if(response.toLowerCase().substring(0,2) === "ke"){
+          $(".kendrick").removeClass("secret");
+          setTimeout(KendrickQuestion, 2000);
+        }
+        else if(response.toLowerCase().substring(0,1) === "t"){
+          $(".taylor").removeClass("secret");
+          setTimeout(TaylorQuestion, 2000);
+        }
+        else if(response.toLowerCase().substring(0,2) === "ka"){
+          $("body").prepend("<h1>Damn Right</h1>");
+          $(".taylor").removeClass("secret");
+          $(".taylor").addClass("kanyeHappy");
+        }
+
+    });
+    </script>
+    <style>
+      .taylor{
+        background-image: url(imgs/taylor.jpg);
+        width:894px;
+        height:670px;
+      }
+      .kendrick{
+        background-image: url(imgs/kendrick.jpg);
+        width: 683px;
+        height: 384px;
+      }
+      .kanyeHappy{
+        background-image: url(imgs/kanyeHappy.jpg);
+        width:757px;
+        height:500px;
+      }
+      .kanyeMad{
+        background-image: url(imgs/kanyeMad.jpg);
+        width:1099px;
+        height:732px;
+      }
+
+      .secret{
+        display: none;
+      }
+      div{
+        background-size:cover;
+        -webkit-transition: background-image, 5s;
+      }
+      body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="kendrick secret"></div>
+    <div class="taylor secret"></div>
+  </body>
+</html>
